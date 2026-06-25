@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd archform && npm install && npm run build",
-  "outputDirectory": "archform/dist",
-  "installCommand": "echo skip"
+  "framework": "vite",
+  "rootDirectory": "archform",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
