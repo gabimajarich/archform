@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node engine_test.mjs)",
+      "Bash(npm run *)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell($conns = Get-NetTCPConnection -LocalPort 5173,5174 -State Listen -ErrorAction SilentlyContinue; foreach \\($c in $conns\\) { Write-Output \"Port $\\($c.LocalPort\\) -> PID $\\($c.OwningProcess\\)\"; try { Stop-Process -Id $c.OwningProcess -Force -ErrorAction Stop; Write-Output \"killed $\\($c.OwningProcess\\)\" } catch { Write-Output \"could not kill $\\($c.OwningProcess\\)\" } })",
+      "WebSearch",
+      "WebFetch(domain:www.archdaily.com)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Add vercel.json to point build at archform/ subdirectory *)",
+      "Bash(git push *)",
+      "Bash(git commit -m 'Move vercel.json into archform/ subdir; remove from root *)"
+    ]
+  }
+}
