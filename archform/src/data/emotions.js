@@ -1,0 +1,17 @@
+export const EMOTIONS = [
+  { id: "freedom",      label: "Freedom" },
+  { id: "curiosity",    label: "Curiosity" },
+  { id: "play",         label: "Play" },
+  { id: "community",    label: "Community" },
+  { id: "wonder",       label: "Wonder" },
+  { id: "reflection",   label: "Reflection" },
+  { id: "calm",         label: "Calm" },
+  { id: "exploration",  label: "Exploration" },
+  { id: "connection",   label: "Connection" },
+  { id: "ceremony",     label: "Ceremony" },
+  { id: "groundedness", label: "Groundedness" },
+  { id: "flexibility",  label: "Flexibility" },
+  { id: "safety",       label: "Safety" },
+  { id: "creativity",   label: "Creativity" },
+  { id: "belonging",    label: "Belonging" },
+];

@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-paper text-ink font-sans;
+    margin: 0;
+  }
+  /* Range input reset so we can theme the track/thumb in sand/umber */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type="range"]:focus {
+    outline: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Page enter: fade + 8px upward slide (replayed via key={step})       */
+/* ------------------------------------------------------------------ */
+@keyframes archform-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-enter {
+  animation: archform-enter 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ------------------------------------------------------------------ */
+/* Results section stagger: fade + small rise, delay set inline        */
+/* ------------------------------------------------------------------ */
+@keyframes archform-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-rise {
+  animation: archform-rise 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Pulse used by the emotion counter when blocking a 6th selection */
+@keyframes archform-pulse {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.14); }
+  100% { transform: scale(1); }
+}
+.animate-pulse-once {
+  animation: archform-pulse 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Loading line sweep (no spinner) */
+@keyframes archform-sweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+.animate-sweep {
+  animation: archform-sweep 1400ms cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Emotion card flip (CSS only)                                        */
+/* ------------------------------------------------------------------ */
+.flip {
+  perspective: 1000px;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+.flip.is-selected .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Range slider theming (track sand, fill+thumb umber)                 */
+/* The fill is painted via a CSS var --fill set inline (0..100%).      */
+/* ------------------------------------------------------------------ */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    #6B5E4C 0%,
+    #6B5E4C var(--fill, 50%),
+    #E9E2D4 var(--fill, 50%),
+    #E9E2D4 100%
+  );
+}
+input[type="range"]::-moz-range-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: #E9E2D4;
+}
+input[type="range"]::-moz-range-progress {
+  height: 3px;
+  border-radius: 9999px;
+  background: #6B5E4C;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  height: 15px;
+  width: 15px;
+  border-radius: 9999px;
+  background: #6B5E4C;
+  border: 2px solid #FBFAF7;
+  box-shadow: 0 1px 3px rgba(43, 42, 39, 0.25);
+  transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.18);
+}
+input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 9999px;
+  background: #6B5E4C;
+  border: 2px solid #FBFAF7;
+  box-shadow: 0 1px 3px rgba(43, 42, 39, 0.25);
+}
+
+/* Hide scrollbar for the horizontal precedent rail */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: keep opacity fades, drop transforms/flips           */
+/* ------------------------------------------------------------------ */
+@keyframes archform-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print — produce a clean PDF brief via the browser's print dialog    */
+/* ------------------------------------------------------------------ */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* never animate or hide content in the printed output */
+  .animate-enter,
+  .animate-rise,
+  .animate-sweep,
+  .animate-pulse-once {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* let the precedent rail flow onto the page instead of scrolling */
+  .no-scrollbar {
+    overflow: visible !important;
+  }
+  /* lighten heavy shadows for paper */
+  .shadow-card,
+  .shadow-lift {
+    box-shadow: none !important;
+  }
+  section {
+    break-inside: avoid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-enter,
+  .animate-rise {
+    animation-name: archform-fade;
+  }
+  .animate-pulse-once,
+  .animate-sweep {
+    animation: none;
+  }
+  .flip-inner {
+    transition: none;
+  }
+  .flip.is-selected .flip-inner {
+    transform: none;
+  }
+  /* When not flipping, reveal the back face by hiding the front instead */
+  .flip.is-selected .flip-front {
+    display: none;
+  }
+  .flip-back {
+    transform: none;
+  }
+  .flip.is-selected .flip-back {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+  }
+  .flip:not(.is-selected) .flip-back {
+    display: none;
+  }
+}
