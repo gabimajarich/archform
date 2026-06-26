@@ -12,7 +12,15 @@
       "Bash(git push *)",
       "Bash(git commit -m 'Move vercel.json into archform/ subdir; remove from root *)",
       "Bash(rm archform/vercel.json)",
-      "Bash(git commit -m 'Explicit vercel.json at root: build from archform/, serve archform/dist *)"
+      "Bash(git commit -m 'Explicit vercel.json at root: build from archform/, serve archform/dist *)",
+      "WebFetch(domain:www.yourhome.gov.au)",
+      "WebFetch(domain:www.greenspec.co.uk)",
+      "WebFetch(domain:www.architecturaldigest.com)",
+      "WebFetch(domain:thinkwood.com)",
+      "WebFetch(domain:architecture2030.org)",
+      "Bash(git commit -m ' *)",
+      "Bash(vercel --version)",
+      "PowerShell(vercel --version 2>&1)"
     ]
   }
 }
