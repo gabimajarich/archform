@@ -11,7 +11,7 @@
   body {
     @apply text-ink font-sans;
     margin: 0;
-    background: #FBFAF7;
+    background: #FFFDF8;
   }
   /* Range input reset so we can theme the track/thumb in sand/umber */
   input[type="range"] {
@@ -68,7 +68,7 @@
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background: #FDF4E7; /* warm cream base */
+  background: #FFFDF8; /* near-white base — palette col 1 */
 }
 
 /* Each blob: large circle, heavy blur, GPU-composited */
@@ -83,42 +83,42 @@
 .liq-1 {
   width: 75vw; height: 75vw;
   top: -25vh; left: -15vw;
-  background: #F5B48C;
-  opacity: 0.75;
+  background: #EBD9CD;
+  opacity: 0.80;
   animation: liq-1 11s ease-in-out infinite, liq-c1 14s ease-in-out infinite;
 }
 .liq-2 {
   width: 65vw; height: 65vw;
   top: 5vh; left: 30vw;
-  background: #FDE8C8;
-  opacity: 0.80;
+  background: #D8BFB0;
+  opacity: 0.70;
   animation: liq-2 9s ease-in-out infinite, liq-c2 12s ease-in-out infinite;
 }
 .liq-3 {
   width: 80vw; height: 80vw;
   top: 25vh; left: -20vw;
-  background: #EAB48A;
-  opacity: 0.65;
+  background: #C9A88A;
+  opacity: 0.55;
   animation: liq-3 13s ease-in-out infinite, liq-c3 10s ease-in-out infinite;
 }
 .liq-4 {
   width: 60vw; height: 60vw;
   top: 40vh; left: 45vw;
-  background: #F8D8B0;
-  opacity: 0.70;
+  background: #E8CFC2;
+  opacity: 0.65;
   animation: liq-4 10s ease-in-out infinite, liq-c4 15s ease-in-out infinite;
 }
 .liq-5 {
   width: 70vw; height: 70vw;
   top: 55vh; left: 5vw;
-  background: #F2C4A0;
-  opacity: 0.65;
+  background: #C0927E;
+  opacity: 0.50;
   animation: liq-5 12s ease-in-out infinite, liq-c5 11s ease-in-out infinite;
 }
 .liq-6 {
   width: 55vw; height: 55vw;
   top: 60vh; left: 50vw;
-  background: #FBE4C4;
+  background: #F0E2D8;
   opacity: 0.70;
   animation: liq-6 8s ease-in-out infinite, liq-c6 13s ease-in-out infinite;
 }
@@ -158,35 +158,36 @@
 }
 
 /* ── Colour keyframes — background-color animates smoothly ─────── */
+/* Colour cycles stay within the 5-stop palette */
 @keyframes liq-c1 {
-  0%,100% { background-color: #F5B48C; }
-  35%     { background-color: #E89870; }
-  70%     { background-color: #F8CCAA; }
+  0%,100% { background-color: #EBD9CD; }
+  35%     { background-color: #F5EDE8; }
+  70%     { background-color: #D8C4B8; }
 }
 @keyframes liq-c2 {
-  0%,100% { background-color: #FDE8C8; }
-  40%     { background-color: #F5D4A8; }
-  75%     { background-color: #FEF4E4; }
+  0%,100% { background-color: #D8BFB0; }
+  40%     { background-color: #EBD9CD; }
+  75%     { background-color: #C9A88A; }
 }
 @keyframes liq-c3 {
-  0%,100% { background-color: #EAB48A; }
-  30%     { background-color: #F8D0A8; }
-  65%     { background-color: #E09870; }
+  0%,100% { background-color: #C9A88A; }
+  30%     { background-color: #D8BFB0; }
+  65%     { background-color: #C0927E; }
 }
 @keyframes liq-c4 {
-  0%,100% { background-color: #F8D8B0; }
-  45%     { background-color: #EEC090; }
-  80%     { background-color: #FEF0D8; }
+  0%,100% { background-color: #E8CFC2; }
+  45%     { background-color: #C9A88A; }
+  80%     { background-color: #F2E6DF; }
 }
 @keyframes liq-c5 {
-  0%,100% { background-color: #F2C4A0; }
-  35%     { background-color: #E8A880; }
-  70%     { background-color: #FAD8B8; }
+  0%,100% { background-color: #C0927E; }
+  35%     { background-color: #C9A88A; }
+  70%     { background-color: #D8BFB0; }
 }
 @keyframes liq-c6 {
-  0%,100% { background-color: #FBE4C4; }
-  40%     { background-color: #F0C8A0; }
-  75%     { background-color: #FEF0DC; }
+  0%,100% { background-color: #F0E2D8; }
+  40%     { background-color: #EBD9CD; }
+  75%     { background-color: #FFFDF8; }
 }
 
 /* Legacy class — kept harmless */

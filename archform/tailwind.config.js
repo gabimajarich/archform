@@ -4,16 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper:    "#FBFAF7",   // app background (warm white)
-        surface:  "#FFFFFF",   // cards
-        sand:     "#E9E2D4",   // primary accent / borders
-        clay:     "#C9BBA4",   // deeper accent
-        stone:    "#8B8275",   // muted text / icon lines
-        ink:      "#2B2A27",   // primary text (near-black, warm)
-        umber:    "#6B5E4C",   // headings / emphasis
-        moss:     "#6E7A5E",   // subtle positive accent
-        warn:     "#A8703E",   // warning accent (earthy amber, not red)
-        warnbg:   "#F5ECE0",   // warning card background
+        paper:    "#FFFDF8",   // near-white (palette col 1)
+        surface:  "#FFFEFE",   // cards — just off pure white
+        sand:     "#EBD9CD",   // light linen (palette col 2)
+        clay:     "#D8BFB0",   // medium beige (palette col 3)
+        stone:    "#9C7E6A",   // muted text — warm mid-brown
+        ink:      "#2E2420",   // primary text — near-black, warm
+        umber:    "#C0927E",   // headings / emphasis (palette col 5)
+        moss:     "#8F7A6A",   // subtle neutral accent
+        warn:     "#B07848",   // warning accent — earthy amber
+        warnbg:   "#F5EBE0",   // warning card background
       },
       fontFamily: {
         sans:    ["Inter", "system-ui", "sans-serif"],
