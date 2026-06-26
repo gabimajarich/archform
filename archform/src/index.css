@@ -91,111 +91,105 @@
   will-change: transform;
 }
 
-/* Layer 1 — upper warm peach band */
+/* Layer 1 — upper warm peach, shifts colour toward terracotta */
 .wave-blob-1 {
-  height: 55vh;
-  top: -18vh;
-  background: radial-gradient(
-    ellipse 80% 60% at 50% 60%,
-    #F2C49A 0%,
-    #F5D0AF 40%,
-    transparent 75%
-  );
-  opacity: 0.55;
-  animation: wave-drift-1 22s ease-in-out infinite;
-}
-
-/* Layer 2 — cream white mid-band */
-.wave-blob-2 {
-  height: 50vh;
-  top: 12vh;
-  background: radial-gradient(
-    ellipse 70% 55% at 45% 50%,
-    #FEF8F0 0%,
-    #FDFAF5 50%,
-    transparent 80%
-  );
+  height: 70vh;
+  top: -25vh;
   opacity: 0.75;
-  animation: wave-drift-2 28s ease-in-out infinite;
+  animation: wave-drift-1 8s ease-in-out infinite, wave-colour-1 10s ease-in-out infinite;
 }
-
-/* Layer 3 — mid peach, flowing leftward */
+/* Layer 2 — cream white sweeping band */
+.wave-blob-2 {
+  height: 65vh;
+  top: 10vh;
+  opacity: 0.80;
+  animation: wave-drift-2 11s ease-in-out infinite, wave-colour-2 13s ease-in-out infinite;
+}
+/* Layer 3 — mid amber/peach */
 .wave-blob-3 {
-  height: 48vh;
-  top: 30vh;
-  background: radial-gradient(
-    ellipse 75% 50% at 55% 45%,
-    #F0C8A5 0%,
-    #F5D8BC 45%,
-    transparent 75%
-  );
-  opacity: 0.45;
-  animation: wave-drift-3 34s ease-in-out infinite;
-}
-
-/* Layer 4 — lower cream/white */
-.wave-blob-4 {
-  height: 52vh;
-  top: 50vh;
-  background: radial-gradient(
-    ellipse 80% 55% at 40% 40%,
-    #FEF5EC 0%,
-    #FDF9F4 55%,
-    transparent 80%
-  );
-  opacity: 0.70;
-  animation: wave-drift-4 25s ease-in-out infinite;
-}
-
-/* Layer 5 — bottom warm sand tone */
-.wave-blob-5 {
   height: 60vh;
-  top: 65vh;
-  background: radial-gradient(
-    ellipse 70% 60% at 50% 35%,
-    #EED4B8 0%,
-    #F5E2CC 45%,
-    transparent 75%
-  );
-  opacity: 0.50;
-  animation: wave-drift-5 30s ease-in-out infinite;
+  top: 28vh;
+  opacity: 0.65;
+  animation: wave-drift-3 9s ease-in-out infinite, wave-colour-3 12s ease-in-out infinite;
+}
+/* Layer 4 — lower linen/cream */
+.wave-blob-4 {
+  height: 68vh;
+  top: 48vh;
+  opacity: 0.75;
+  animation: wave-drift-4 10s ease-in-out infinite, wave-colour-4 14s ease-in-out infinite;
+}
+/* Layer 5 — bottom warm sand/rose */
+.wave-blob-5 {
+  height: 75vh;
+  top: 62vh;
+  opacity: 0.65;
+  animation: wave-drift-5 12s ease-in-out infinite, wave-colour-5 9s ease-in-out infinite;
 }
 
-/* Each blob drifts horizontally + gentle vertical float at its own pace */
+/* Movement — big swings so motion is clearly visible */
 @keyframes wave-drift-1 {
-  0%   { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
-  25%  { transform: translateX(6%)    translateY(-14px) scaleY(1.04); }
-  50%  { transform: translateX(10%)   translateY(-6px)  scaleY(0.97); }
-  75%  { transform: translateX(4%)    translateY(-18px) scaleY(1.03); }
-  100% { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
+  0%   { transform: translateX(-15%) translateY(0vh)    scaleY(1.00); }
+  30%  { transform: translateX(8%)   translateY(-8vh)   scaleY(1.10); }
+  65%  { transform: translateX(20%)  translateY(-4vh)   scaleY(0.90); }
+  100% { transform: translateX(-15%) translateY(0vh)    scaleY(1.00); }
 }
 @keyframes wave-drift-2 {
-  0%   { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
-  30%  { transform: translateX(-8%)   translateY(12px)  scaleY(0.96); }
-  55%  { transform: translateX(-4%)   translateY(20px)  scaleY(1.05); }
-  80%  { transform: translateX(-10%)  translateY(8px)   scaleY(0.98); }
-  100% { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
+  0%   { transform: translateX(10%)  translateY(0vh)    scaleY(1.00); }
+  35%  { transform: translateX(-18%) translateY(10vh)   scaleY(0.88); }
+  70%  { transform: translateX(-5%)  translateY(5vh)    scaleY(1.12); }
+  100% { transform: translateX(10%)  translateY(0vh)    scaleY(1.00); }
 }
 @keyframes wave-drift-3 {
-  0%   { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
-  20%  { transform: translateX(12%)   translateY(10px)  scaleY(1.06); }
-  50%  { transform: translateX(7%)    translateY(-8px)  scaleY(0.95); }
-  75%  { transform: translateX(14%)   translateY(14px)  scaleY(1.04); }
-  100% { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
+  0%   { transform: translateX(0%)   translateY(0vh)    scaleY(1.00); }
+  25%  { transform: translateX(22%)  translateY(6vh)    scaleY(1.08); }
+  55%  { transform: translateX(10%)  translateY(-9vh)   scaleY(0.92); }
+  80%  { transform: translateX(25%)  translateY(4vh)    scaleY(1.06); }
+  100% { transform: translateX(0%)   translateY(0vh)    scaleY(1.00); }
 }
 @keyframes wave-drift-4 {
-  0%   { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
-  35%  { transform: translateX(-6%)   translateY(-16px) scaleY(1.03); }
-  60%  { transform: translateX(-12%)  translateY(-6px)  scaleY(0.97); }
-  85%  { transform: translateX(-5%)   translateY(-20px) scaleY(1.05); }
-  100% { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
+  0%   { transform: translateX(-8%)  translateY(0vh)    scaleY(1.00); }
+  40%  { transform: translateX(-25%) translateY(-7vh)   scaleY(0.90); }
+  75%  { transform: translateX(-12%) translateY(-12vh)  scaleY(1.10); }
+  100% { transform: translateX(-8%)  translateY(0vh)    scaleY(1.00); }
 }
 @keyframes wave-drift-5 {
-  0%   { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
-  25%  { transform: translateX(8%)    translateY(-10px) scaleY(0.96); }
-  55%  { transform: translateX(5%)    translateY(16px)  scaleY(1.04); }
-  80%  { transform: translateX(10%)   translateY(6px)   scaleY(0.98); }
-  100% { transform: translateX(0%)    translateY(0px)   scaleY(1.00); }
+  0%   { transform: translateX(5%)   translateY(0vh)    scaleY(1.00); }
+  30%  { transform: translateX(20%)  translateY(-8vh)   scaleY(0.92); }
+  60%  { transform: translateX(8%)   translateY(8vh)    scaleY(1.08); }
+  100% { transform: translateX(5%)   translateY(0vh)    scaleY(1.00); }
+}
+
+/* Colour shift — each layer cycles through warm beige tones */
+@keyframes wave-colour-1 {
+  0%   { background: radial-gradient(ellipse 80% 60% at 50% 60%, #F2B48A 0%, #F5C9A0 40%, transparent 72%); }
+  33%  { background: radial-gradient(ellipse 80% 60% at 50% 60%, #E8A87A 0%, #EFC4A0 40%, transparent 72%); }
+  66%  { background: radial-gradient(ellipse 80% 60% at 50% 60%, #F8D4B0 0%, #FBE0C5 40%, transparent 72%); }
+  100% { background: radial-gradient(ellipse 80% 60% at 50% 60%, #F2B48A 0%, #F5C9A0 40%, transparent 72%); }
+}
+@keyframes wave-colour-2 {
+  0%   { background: radial-gradient(ellipse 70% 55% at 45% 50%, #FEF5E8 0%, #FDF0DF 50%, transparent 78%); }
+  40%  { background: radial-gradient(ellipse 70% 55% at 45% 50%, #F8E5CC 0%, #F5DCC0 50%, transparent 78%); }
+  75%  { background: radial-gradient(ellipse 70% 55% at 45% 50%, #FEFAF4 0%, #FDF8F0 50%, transparent 78%); }
+  100% { background: radial-gradient(ellipse 70% 55% at 45% 50%, #FEF5E8 0%, #FDF0DF 50%, transparent 78%); }
+}
+@keyframes wave-colour-3 {
+  0%   { background: radial-gradient(ellipse 75% 50% at 55% 45%, #EDBC90 0%, #F2CCAA 45%, transparent 72%); }
+  35%  { background: radial-gradient(ellipse 75% 50% at 55% 45%, #F5D0B0 0%, #F8DECA 45%, transparent 72%); }
+  70%  { background: radial-gradient(ellipse 75% 50% at 55% 45%, #E8A87C 0%, #EFC0A0 45%, transparent 72%); }
+  100% { background: radial-gradient(ellipse 75% 50% at 55% 45%, #EDBC90 0%, #F2CCAA 45%, transparent 72%); }
+}
+@keyframes wave-colour-4 {
+  0%   { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FEF0E0 0%, #FDE8D0 55%, transparent 78%); }
+  45%  { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FBE8D4 0%, #F8DFC8 55%, transparent 78%); }
+  80%  { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FEFAF6 0%, #FDF6EE 55%, transparent 78%); }
+  100% { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FEF0E0 0%, #FDE8D0 55%, transparent 78%); }
+}
+@keyframes wave-colour-5 {
+  0%   { background: radial-gradient(ellipse 70% 60% at 50% 35%, #E8C4A0 0%, #EFD4B8 45%, transparent 72%); }
+  30%  { background: radial-gradient(ellipse 70% 60% at 50% 35%, #F5D8BC 0%, #F8E4CC 45%, transparent 72%); }
+  65%  { background: radial-gradient(ellipse 70% 60% at 50% 35%, #DFAC88 0%, #EABEA0 45%, transparent 72%); }
+  100% { background: radial-gradient(ellipse 70% 60% at 50% 35%, #E8C4A0 0%, #EFD4B8 45%, transparent 72%); }
 }
 
 /* Legacy class — no longer used but kept harmless */
