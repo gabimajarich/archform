@@ -1,5 +1,4 @@
 import { EMOTIONS } from "../data/emotions.js";
-import { EMOTION_STRATEGIES, EMOTION_PAIR_STRATEGIES } from "../data/emotionMappings.js";
 import { deriveMaterials } from "../data/materialMappings.js";
 import { deriveEnvironmental, SITE_LABELS } from "../data/environmentMappings.js";
 import { PRECEDENTS, PRECEDENT_PRIORITY_TAGS } from "../data/precedentMappings.js";
@@ -8,6 +7,7 @@ import { BUILDING_LABELS } from "../data/buildingTypes.js";
 import { deriveDNA } from "../data/designDnaLogic.js";
 import { detectContradictions } from "../data/contradictionLogic.js";
 import { deriveProgram } from "../data/programData.js";
+import { STRATEGIES, priorityStrength } from "../data/strategies.js";
 
 const EMOTION_LABELS = Object.fromEntries(EMOTIONS.map((e) => [e.id, e.label]));
 
@@ -31,34 +31,60 @@ function shuffleInPlace(arr, rng) {
   return arr;
 }
 
-// --- Spatial strategies (with explainability) --------------------------------
-// Each strategy carries `because` — the emotion(s) that produced it. Pair-bonus
-// strategies (both emotions selected) lead, then per-emotion base strategies.
-export function deriveSpatial(emotions = []) {
-  const items = [];
-  const seen = new Set();
-  const push = (text, because) => {
-    if (seen.has(text)) return;
-    seen.add(text);
-    items.push({ text, because });
-  };
+// --- Spatial strategies: score 104 strategies against user inputs -------------
+// Scoring per STRATEGY_SELECTION.md:
+//   +3  per selected emotion in triggers.emotions
+//   +0..2 (graded) per priority band condition satisfied
+//   +2  if buildingType in triggers.buildingTypes
+//   +1  if site in triggers.sites
+export function deriveSpatial(emotions = [], priorities = {}, buildingType = null, site = null) {
+  const scored = STRATEGIES.map((s) => {
+    let score = 0;
+    const because = [];
 
-  const sorted = [...emotions].sort();
-  for (let i = 0; i < sorted.length; i++) {
-    for (let j = i + 1; j < sorted.length; j++) {
-      const key = `${sorted[i]}+${sorted[j]}`;
-      if (EMOTION_PAIR_STRATEGIES[key]) {
-        const because = [EMOTION_LABELS[sorted[i]], EMOTION_LABELS[sorted[j]]];
-        EMOTION_PAIR_STRATEGIES[key].forEach((s) => push(s, because));
+    for (const eid of emotions) {
+      if (s.triggers.emotions.includes(eid)) {
+        score += 3;
+        because.push(EMOTION_LABELS[eid] ?? eid);
       }
     }
-  }
-  for (const id of emotions) {
-    if (EMOTION_STRATEGIES[id]) {
-      EMOTION_STRATEGIES[id].forEach((s) => push(s, [EMOTION_LABELS[id]]));
+
+    if (s.triggers.priorities) {
+      for (const [key, band] of Object.entries(s.triggers.priorities)) {
+        const v = priorities[key] ?? 50;
+        const strength = priorityStrength(v, band);
+        if (strength > 0) {
+          score += 2 * strength;
+          because.push(`${band.charAt(0).toUpperCase() + band.slice(1)} ${PRIORITY_LABELS[key] ?? key}`);
+        }
+      }
     }
+
+    if (buildingType && s.triggers.buildingTypes?.includes(buildingType)) {
+      score += 2;
+      because.push(BUILDING_LABELS[buildingType] ?? buildingType);
+    }
+
+    if (site && s.triggers.sites?.includes(site)) {
+      score += 1;
+      because.push(SITE_LABELS[site] ?? site);
+    }
+
+    return { ...s, score, because: [...new Set(because)] };
+  });
+
+  const threshold = 3;
+  let kept = scored.filter((s) => s.score >= threshold).sort((a, b) => b.score - a.score);
+
+  if (kept.length < 4) {
+    const extra = scored
+      .filter((s) => s.score < threshold)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 4 - kept.length);
+    kept = [...kept, ...extra];
   }
-  return items;
+
+  return kept.slice(0, 12);
 }
 
 // --- Precedents (with explainability) ----------------------------------------
@@ -99,7 +125,7 @@ export function generate(inputs, seed = 0) {
   const materials = deriveMaterials(inputs.priorities, inputs.site);
   return {
     dna:           deriveDNA(inputs),
-    spatial:       deriveSpatial(inputs.emotions),
+    spatial:       deriveSpatial(inputs.emotions, inputs.priorities, inputs.buildingType, inputs.site),
     materials,
     environmental: deriveEnvironmental(inputs.site),
     environmentBecause: inputs.site ? SITE_LABELS[inputs.site] : null,

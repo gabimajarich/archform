@@ -4,6 +4,7 @@ import { buildingLabel } from "../data/buildingTypes.js";
 import { SITE_LABELS } from "../data/environmentMappings.js";
 import LoadingState from "../components/LoadingState.jsx";
 import ResultCard from "../components/ResultCard.jsx";
+import StrategyCard from "../components/StrategyCard.jsx";
 import PrecedentCard from "../components/PrecedentCard.jsx";
 import WarningCard from "../components/WarningCard.jsx";
 import Because from "../components/Because.jsx";
@@ -124,12 +125,10 @@ export default function ResultsPage() {
       {/* 3. Spatial Strategies */}
       <section>
         <SectionHeader kicker="02" title="Spatial Strategies" />
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <p className="mt-1 text-xs text-stone">Click any strategy to expand the full detail.</p>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {spatial.map((s, i) => (
-            <ResultCard key={s.text} index={i}>
-              <h4 className="text-sm md:text-base text-ink leading-relaxed">{s.text}</h4>
-              <Because drivers={s.because} />
-            </ResultCard>
+            <StrategyCard key={s.id} strategy={s} index={i} />
           ))}
         </div>
       </section>
