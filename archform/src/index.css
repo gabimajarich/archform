@@ -58,141 +58,138 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Wave background — layered drifting blobs, matches reference image  */
+/* Liquid blob background                                             */
+/* Solid-colour circles + heavy blur = genuinely fluid look.         */
+/* background-color IS interpolatable → smooth colour shifts.        */
 /* ------------------------------------------------------------------ */
 
-/* Fixed full-screen container behind all content */
 .wave-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  background: #FDF4E7; /* warm cream base */
 }
 
-/* Base gradient: warm cream fading top-right to soft peach bottom-left */
-.wave-base {
+/* Each blob: large circle, heavy blur, GPU-composited */
+.liq {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 120% 100% at 70% 10%,
-    #FDE8CC 0%,
-    #FEF5EA 35%,
-    #FDF9F4 65%,
-    #F5E8D8 100%
-  );
-}
-
-/* Shared blob shape: very wide, short, elliptical  */
-.wave-blob {
-  position: absolute;
-  left: -20%;
-  width: 160%;
   border-radius: 50%;
-  will-change: transform;
+  filter: blur(90px);
+  will-change: transform, background-color;
 }
 
-/* Layer 1 — upper warm peach, shifts colour toward terracotta */
-.wave-blob-1 {
-  height: 70vh;
-  top: -25vh;
+/* ── Blob sizes and starting positions ─────────────────────────── */
+.liq-1 {
+  width: 75vw; height: 75vw;
+  top: -25vh; left: -15vw;
+  background: #F5B48C;
   opacity: 0.75;
-  animation: wave-drift-1 8s ease-in-out infinite, wave-colour-1 10s ease-in-out infinite;
+  animation: liq-1 11s ease-in-out infinite, liq-c1 14s ease-in-out infinite;
 }
-/* Layer 2 — cream white sweeping band */
-.wave-blob-2 {
-  height: 65vh;
-  top: 10vh;
+.liq-2 {
+  width: 65vw; height: 65vw;
+  top: 5vh; left: 30vw;
+  background: #FDE8C8;
   opacity: 0.80;
-  animation: wave-drift-2 11s ease-in-out infinite, wave-colour-2 13s ease-in-out infinite;
+  animation: liq-2 9s ease-in-out infinite, liq-c2 12s ease-in-out infinite;
 }
-/* Layer 3 — mid amber/peach */
-.wave-blob-3 {
-  height: 60vh;
-  top: 28vh;
+.liq-3 {
+  width: 80vw; height: 80vw;
+  top: 25vh; left: -20vw;
+  background: #EAB48A;
   opacity: 0.65;
-  animation: wave-drift-3 9s ease-in-out infinite, wave-colour-3 12s ease-in-out infinite;
+  animation: liq-3 13s ease-in-out infinite, liq-c3 10s ease-in-out infinite;
 }
-/* Layer 4 — lower linen/cream */
-.wave-blob-4 {
-  height: 68vh;
-  top: 48vh;
-  opacity: 0.75;
-  animation: wave-drift-4 10s ease-in-out infinite, wave-colour-4 14s ease-in-out infinite;
+.liq-4 {
+  width: 60vw; height: 60vw;
+  top: 40vh; left: 45vw;
+  background: #F8D8B0;
+  opacity: 0.70;
+  animation: liq-4 10s ease-in-out infinite, liq-c4 15s ease-in-out infinite;
 }
-/* Layer 5 — bottom warm sand/rose */
-.wave-blob-5 {
-  height: 75vh;
-  top: 62vh;
+.liq-5 {
+  width: 70vw; height: 70vw;
+  top: 55vh; left: 5vw;
+  background: #F2C4A0;
   opacity: 0.65;
-  animation: wave-drift-5 12s ease-in-out infinite, wave-colour-5 9s ease-in-out infinite;
+  animation: liq-5 12s ease-in-out infinite, liq-c5 11s ease-in-out infinite;
+}
+.liq-6 {
+  width: 55vw; height: 55vw;
+  top: 60vh; left: 50vw;
+  background: #FBE4C4;
+  opacity: 0.70;
+  animation: liq-6 8s ease-in-out infinite, liq-c6 13s ease-in-out infinite;
 }
 
-/* Movement — big swings so motion is clearly visible */
-@keyframes wave-drift-1 {
-  0%   { transform: translateX(-15%) translateY(0vh)    scaleY(1.00); }
-  30%  { transform: translateX(8%)   translateY(-8vh)   scaleY(1.10); }
-  65%  { transform: translateX(20%)  translateY(-4vh)   scaleY(0.90); }
-  100% { transform: translateX(-15%) translateY(0vh)    scaleY(1.00); }
+/* ── Movement keyframes — translate only, ease-in-out for silky feel */
+@keyframes liq-1 {
+  0%,100% { transform: translate(0,      0);      }
+  33%     { transform: translate(28vw,   22vh);   }
+  66%     { transform: translate(12vw,  -15vh);   }
 }
-@keyframes wave-drift-2 {
-  0%   { transform: translateX(10%)  translateY(0vh)    scaleY(1.00); }
-  35%  { transform: translateX(-18%) translateY(10vh)   scaleY(0.88); }
-  70%  { transform: translateX(-5%)  translateY(5vh)    scaleY(1.12); }
-  100% { transform: translateX(10%)  translateY(0vh)    scaleY(1.00); }
+@keyframes liq-2 {
+  0%,100% { transform: translate(0,     0);       }
+  30%     { transform: translate(-32vw,  18vh);   }
+  65%     { transform: translate(-15vw, -20vh);   }
 }
-@keyframes wave-drift-3 {
-  0%   { transform: translateX(0%)   translateY(0vh)    scaleY(1.00); }
-  25%  { transform: translateX(22%)  translateY(6vh)    scaleY(1.08); }
-  55%  { transform: translateX(10%)  translateY(-9vh)   scaleY(0.92); }
-  80%  { transform: translateX(25%)  translateY(4vh)    scaleY(1.06); }
-  100% { transform: translateX(0%)   translateY(0vh)    scaleY(1.00); }
+@keyframes liq-3 {
+  0%,100% { transform: translate(0,     0);       }
+  25%     { transform: translate(35vw,  -12vh);   }
+  60%     { transform: translate(20vw,   25vh);   }
+  80%     { transform: translate(40vw,   10vh);   }
 }
-@keyframes wave-drift-4 {
-  0%   { transform: translateX(-8%)  translateY(0vh)    scaleY(1.00); }
-  40%  { transform: translateX(-25%) translateY(-7vh)   scaleY(0.90); }
-  75%  { transform: translateX(-12%) translateY(-12vh)  scaleY(1.10); }
-  100% { transform: translateX(-8%)  translateY(0vh)    scaleY(1.00); }
+@keyframes liq-4 {
+  0%,100% { transform: translate(0,     0);       }
+  40%     { transform: translate(-28vw, -18vh);   }
+  75%     { transform: translate(-10vw,  20vh);   }
 }
-@keyframes wave-drift-5 {
-  0%   { transform: translateX(5%)   translateY(0vh)    scaleY(1.00); }
-  30%  { transform: translateX(20%)  translateY(-8vh)   scaleY(0.92); }
-  60%  { transform: translateX(8%)   translateY(8vh)    scaleY(1.08); }
-  100% { transform: translateX(5%)   translateY(0vh)    scaleY(1.00); }
+@keyframes liq-5 {
+  0%,100% { transform: translate(0,     0);       }
+  30%     { transform: translate(25vw,  -22vh);   }
+  55%     { transform: translate(15vw,   15vh);   }
+  80%     { transform: translate(30vw,  -8vh);    }
 }
-
-/* Colour shift — each layer cycles through warm beige tones */
-@keyframes wave-colour-1 {
-  0%   { background: radial-gradient(ellipse 80% 60% at 50% 60%, #F2B48A 0%, #F5C9A0 40%, transparent 72%); }
-  33%  { background: radial-gradient(ellipse 80% 60% at 50% 60%, #E8A87A 0%, #EFC4A0 40%, transparent 72%); }
-  66%  { background: radial-gradient(ellipse 80% 60% at 50% 60%, #F8D4B0 0%, #FBE0C5 40%, transparent 72%); }
-  100% { background: radial-gradient(ellipse 80% 60% at 50% 60%, #F2B48A 0%, #F5C9A0 40%, transparent 72%); }
-}
-@keyframes wave-colour-2 {
-  0%   { background: radial-gradient(ellipse 70% 55% at 45% 50%, #FEF5E8 0%, #FDF0DF 50%, transparent 78%); }
-  40%  { background: radial-gradient(ellipse 70% 55% at 45% 50%, #F8E5CC 0%, #F5DCC0 50%, transparent 78%); }
-  75%  { background: radial-gradient(ellipse 70% 55% at 45% 50%, #FEFAF4 0%, #FDF8F0 50%, transparent 78%); }
-  100% { background: radial-gradient(ellipse 70% 55% at 45% 50%, #FEF5E8 0%, #FDF0DF 50%, transparent 78%); }
-}
-@keyframes wave-colour-3 {
-  0%   { background: radial-gradient(ellipse 75% 50% at 55% 45%, #EDBC90 0%, #F2CCAA 45%, transparent 72%); }
-  35%  { background: radial-gradient(ellipse 75% 50% at 55% 45%, #F5D0B0 0%, #F8DECA 45%, transparent 72%); }
-  70%  { background: radial-gradient(ellipse 75% 50% at 55% 45%, #E8A87C 0%, #EFC0A0 45%, transparent 72%); }
-  100% { background: radial-gradient(ellipse 75% 50% at 55% 45%, #EDBC90 0%, #F2CCAA 45%, transparent 72%); }
-}
-@keyframes wave-colour-4 {
-  0%   { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FEF0E0 0%, #FDE8D0 55%, transparent 78%); }
-  45%  { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FBE8D4 0%, #F8DFC8 55%, transparent 78%); }
-  80%  { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FEFAF6 0%, #FDF6EE 55%, transparent 78%); }
-  100% { background: radial-gradient(ellipse 80% 55% at 40% 40%, #FEF0E0 0%, #FDE8D0 55%, transparent 78%); }
-}
-@keyframes wave-colour-5 {
-  0%   { background: radial-gradient(ellipse 70% 60% at 50% 35%, #E8C4A0 0%, #EFD4B8 45%, transparent 72%); }
-  30%  { background: radial-gradient(ellipse 70% 60% at 50% 35%, #F5D8BC 0%, #F8E4CC 45%, transparent 72%); }
-  65%  { background: radial-gradient(ellipse 70% 60% at 50% 35%, #DFAC88 0%, #EABEA0 45%, transparent 72%); }
-  100% { background: radial-gradient(ellipse 70% 60% at 50% 35%, #E8C4A0 0%, #EFD4B8 45%, transparent 72%); }
+@keyframes liq-6 {
+  0%,100% { transform: translate(0,     0);       }
+  35%     { transform: translate(-25vw, -15vh);   }
+  70%     { transform: translate(-35vw,  20vh);   }
 }
 
-/* Legacy class — no longer used but kept harmless */
+/* ── Colour keyframes — background-color animates smoothly ─────── */
+@keyframes liq-c1 {
+  0%,100% { background-color: #F5B48C; }
+  35%     { background-color: #E89870; }
+  70%     { background-color: #F8CCAA; }
+}
+@keyframes liq-c2 {
+  0%,100% { background-color: #FDE8C8; }
+  40%     { background-color: #F5D4A8; }
+  75%     { background-color: #FEF4E4; }
+}
+@keyframes liq-c3 {
+  0%,100% { background-color: #EAB48A; }
+  30%     { background-color: #F8D0A8; }
+  65%     { background-color: #E09870; }
+}
+@keyframes liq-c4 {
+  0%,100% { background-color: #F8D8B0; }
+  45%     { background-color: #EEC090; }
+  80%     { background-color: #FEF0D8; }
+}
+@keyframes liq-c5 {
+  0%,100% { background-color: #F2C4A0; }
+  35%     { background-color: #E8A880; }
+  70%     { background-color: #FAD8B8; }
+}
+@keyframes liq-c6 {
+  0%,100% { background-color: #FBE4C4; }
+  40%     { background-color: #F0C8A0; }
+  75%     { background-color: #FEF0DC; }
+}
+
+/* Legacy class — kept harmless */
 .bg-gradient-ambient {}
 
 /* Loading line sweep (no spinner) */
