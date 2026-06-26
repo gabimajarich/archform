@@ -138,20 +138,31 @@ export function Commercial() {
   );
 }
 
-// Public Space — open pavilion, thin column, landscape
+// Public Space — open pavilion, thin columns, stick people gathering beneath
 export function PublicSpace() {
   return (
     <Frame>
-      <line x1="8" y1="60" x2="76" y2="60" />
-      <line x1="8" y1="60" x2="76" y2="60" />
-      <line x1="20" y1="38" x2="20" y2="60" />
-      <line x1="42" y1="38" x2="42" y2="60" />
-      <line x1="64" y1="38" x2="64" y2="60" />
-      <line x1="14" y1="38" x2="70" y2="38" />
-      <line x1="14" y1="34" x2="70" y2="34" />
-      <path d="M8 60 Q20 56 32 60 Q44 64 56 60 Q68 56 76 60" strokeDasharray="2 4" opacity="0.5" />
-      <line x1="30" y1="60" x2="30" y2="68" />
-      <path d="M24 64 Q30 58 36 64" />
+      {/* Ground */}
+      <line x1="8" y1="64" x2="76" y2="64" />
+      {/* Thin columns */}
+      <line x1="20" y1="40" x2="20" y2="64" />
+      <line x1="42" y1="40" x2="42" y2="64" />
+      <line x1="64" y1="40" x2="64" y2="64" />
+      {/* Flat roof / canopy */}
+      <line x1="12" y1="40" x2="72" y2="40" />
+      <line x1="12" y1="36" x2="72" y2="36" />
+      {/* Stick person 1 — left */}
+      <circle cx="28" cy="50" r="3" />
+      <line x1="28" y1="53" x2="28" y2="62" />
+      <line x1="22" y1="57" x2="34" y2="57" />
+      <line x1="28" y1="62" x2="24" y2="64" />
+      <line x1="28" y1="62" x2="32" y2="64" />
+      {/* Stick person 2 — right, slightly smaller / further */}
+      <circle cx="55" cy="51" r="2.5" />
+      <line x1="55" y1="54" x2="55" y2="62" />
+      <line x1="50" y1="57" x2="60" y2="57" />
+      <line x1="55" y1="62" x2="52" y2="64" />
+      <line x1="55" y1="62" x2="58" y2="64" />
     </Frame>
   );
 }

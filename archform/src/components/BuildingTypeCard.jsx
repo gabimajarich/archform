@@ -11,7 +11,7 @@ const ILLUSTRATIONS = {
   community:       CommunityCentre,
   hospitality:     Hospitality,
   commercial:      Commercial,
-  publicSpace:     PublicSpace,
+  public:          PublicSpace,
   workplace:       Workplace,
   other:           Other,
 };
