@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useDesign, canAdvance } from "./context/DesignContext.jsx";
 import ProgressBar from "./components/ProgressBar.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 import EmotionSelection from "./pages/EmotionSelection.jsx";
 import PrioritySelection from "./pages/PrioritySelection.jsx";
 import ProjectContext from "./pages/ProjectContext.jsx";
@@ -10,6 +12,7 @@ const PAGES = [EmotionSelection, PrioritySelection, ProjectContext, ResultsPage]
 export default function App() {
   const { state, dispatch } = useDesign();
   const { step } = state;
+  const [landed, setLanded] = useState(false);
   const Page = PAGES[step];
   const isResults = step === 3;
   const gateOpen = canAdvance(state);
@@ -20,22 +23,30 @@ export default function App() {
     dispatch({ type: "GOTO_STEP", step: Math.min(3, step + 1) });
   };
 
+  if (!landed) {
+    return (
+      <div className="bg-gradient-ambient min-h-screen">
+        <div key="landing" className="animate-enter">
+          <LandingPage onEnter={() => setLanded(true)} />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-paper">
+    <div className="bg-gradient-ambient min-h-screen flex flex-col">
       <div className="print:hidden">
         <ProgressBar step={step} />
       </div>
 
-      {/* Active page re-mounts on step change so the enter animation replays */}
       <main className="flex-1">
         <div key={step} className="animate-enter">
           <Page />
         </div>
       </main>
 
-      {/* Bottom nav — hidden on the results screen (it has its own footer) */}
       {!isResults && (
-        <footer className="sticky bottom-0 border-t border-sand bg-paper/90 backdrop-blur-sm">
+        <footer className="sticky bottom-0 border-t border-sand bg-paper/60 backdrop-blur-sm print:hidden">
           <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16">
             <div className="flex items-center justify-between py-4">
               {step > 0 ? (
@@ -50,7 +61,16 @@ export default function App() {
                   Back
                 </button>
               ) : (
-                <span />
+                <button
+                  type="button"
+                  onClick={() => setLanded(false)}
+                  className="inline-flex items-center gap-2 text-sm text-stone transition hover:text-umber"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                  Back
+                </button>
               )}
 
               <button

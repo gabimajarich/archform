@@ -9,8 +9,9 @@
     text-rendering: optimizeLegibility;
   }
   body {
-    @apply bg-paper text-ink font-sans;
+    @apply text-ink font-sans;
     margin: 0;
+    background: #FBFAF7;
   }
   /* Range input reset so we can theme the track/thumb in sand/umber */
   input[type="range"] {
@@ -54,6 +55,28 @@
 }
 .animate-pulse-once {
   animation: archform-pulse 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Slow ambient gradient — beige tones, loops every 20s               */
+/* ------------------------------------------------------------------ */
+@keyframes archform-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.bg-gradient-ambient {
+  background: linear-gradient(
+    135deg,
+    #FBFAF7 0%,
+    #F5EFE6 20%,
+    #EDE4D6 40%,
+    #F2EBE0 60%,
+    #F8F4EE 80%,
+    #FBFAF7 100%
+  );
+  background-size: 300% 300%;
+  animation: archform-gradient 20s ease infinite;
 }
 
 /* Loading line sweep (no spinner) */
@@ -200,6 +223,10 @@ input[type="range"]::-moz-range-thumb {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .bg-gradient-ambient {
+    animation: none;
+    background: #FBFAF7;
+  }
   .animate-enter,
   .animate-rise {
     animation-name: archform-fade;
