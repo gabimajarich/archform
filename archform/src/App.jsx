@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDesign, canAdvance } from "./context/DesignContext.jsx";
 import ProgressBar from "./components/ProgressBar.jsx";
+import WaveBackground from "./components/WaveBackground.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import EmotionSelection from "./pages/EmotionSelection.jsx";
 import PrioritySelection from "./pages/PrioritySelection.jsx";
@@ -25,7 +26,8 @@ export default function App() {
 
   if (!landed) {
     return (
-      <div className="bg-gradient-ambient min-h-screen">
+      <div className="min-h-screen">
+        <WaveBackground step={-1} />
         <div key="landing" className="animate-enter">
           <LandingPage onEnter={() => setLanded(true)} />
         </div>
@@ -34,7 +36,8 @@ export default function App() {
   }
 
   return (
-    <div className="bg-gradient-ambient min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
+      <WaveBackground step={step} />
       <div className="print:hidden">
         <ProgressBar step={step} />
       </div>
@@ -46,7 +49,7 @@ export default function App() {
       </main>
 
       {!isResults && (
-        <footer className="sticky bottom-0 border-t border-sand bg-paper/60 backdrop-blur-sm print:hidden">
+        <footer className="sticky bottom-0 border-t border-sand/60 bg-white/30 backdrop-blur-md print:hidden">
           <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16">
             <div className="flex items-center justify-between py-4">
               {step > 0 ? (

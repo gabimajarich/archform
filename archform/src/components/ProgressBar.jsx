@@ -3,7 +3,7 @@ const SUBTITLES = ["Emotion", "Priorities", "Project", "Design"];
 
 export default function ProgressBar({ step }) {
   return (
-    <div className="w-full border-b border-sand/70 bg-paper/80 backdrop-blur-sm">
+    <div className="w-full border-b border-sand/70 bg-white/30 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16">
         <div className="flex items-center gap-3 md:gap-6 py-4">
           <span className="font-display text-lg text-umber tracking-tightish pr-2 md:pr-6">
