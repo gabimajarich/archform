@@ -11,6 +11,7 @@ import Because from "../components/Because.jsx";
 import RadarChart from "../components/RadarChart.jsx";
 import BubbleDiagram from "../components/BubbleDiagram.jsx";
 import MaterialSwatchBoard from "../components/MaterialSwatchBoard.jsx";
+import WayfindingSection from "../components/WayfindingSection.jsx";
 
 function SectionHeader({ kicker, title, index = 0 }) {
   return (
@@ -183,6 +184,19 @@ export default function ResultsPage() {
             </p>
           </div>
         )}
+      </section>
+
+      {/* 8. Wayfinding & Orientation */}
+      <section>
+        <SectionHeader kicker="07" title="Wayfinding & Orientation" />
+        <div className="mt-6">
+          <WayfindingSection
+            emotions={state.emotions}
+            priorities={state.priorities}
+            buildingType={state.buildingType}
+            site={state.site}
+          />
+        </div>
       </section>
 
       {/* Footer actions */}
