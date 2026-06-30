@@ -202,19 +202,6 @@ export default function ResultsPage() {
             </svg>
             Export PDF brief
           </button>
-          <button
-            type="button"
-            onClick={() => dispatch({ type: "REGENERATE" })}
-            className="inline-flex items-center gap-2 rounded-full border border-sand bg-surface px-6 py-3 text-sm text-umber transition duration-300 ease-soft hover:border-umber"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-              <path d="M21 3v5h-5" />
-              <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-              <path d="M3 21v-5h5" />
-            </svg>
-            Regenerate Design Path
-          </button>
         </div>
         <button
           type="button"
