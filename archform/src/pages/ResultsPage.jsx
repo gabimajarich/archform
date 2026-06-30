@@ -6,6 +6,7 @@ import LoadingState from "../components/LoadingState.jsx";
 import ResultCard from "../components/ResultCard.jsx";
 import StrategyCard from "../components/StrategyCard.jsx";
 import PrecedentCard from "../components/PrecedentCard.jsx";
+import PrecedentModal from "../components/PrecedentModal.jsx";
 import WarningCard from "../components/WarningCard.jsx";
 import Because from "../components/Because.jsx";
 import RadarChart from "../components/RadarChart.jsx";
@@ -37,6 +38,7 @@ function DiagramCard({ title, caption, drivers, children }) {
 export default function ResultsPage() {
   const { state, dispatch } = useDesign();
   const [loading, setLoading] = useState(true);
+  const [openPrecedent, setOpenPrecedent] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -162,7 +164,7 @@ export default function ResultsPage() {
         <SectionHeader kicker="05" title="Precedent Projects" />
         <div className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 pt-1 print:flex-wrap print:overflow-visible">
           {precedents.map((p) => (
-            <PrecedentCard key={p.id} precedent={p} />
+            <PrecedentCard key={p.id} precedent={p} onOpen={setOpenPrecedent} />
           ))}
         </div>
       </section>
@@ -222,6 +224,11 @@ export default function ResultsPage() {
           Start over
         </button>
       </section>
+
+      {/* Precedent detail modal */}
+      {openPrecedent && (
+        <PrecedentModal precedent={openPrecedent} onClose={() => setOpenPrecedent(null)} />
+      )}
     </div>
   );
 }
