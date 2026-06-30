@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import PrecedentPortrait from "./PrecedentPortrait.jsx";
 import { getPrecedentDetail } from "../data/precedentDetails.js";
 import { useWikiImage } from "../data/wikiImage.js";
@@ -23,7 +24,7 @@ export default function PrecedentModal({ precedent, onClose }) {
   const detail = getPrecedentDetail(precedent);
   const showPhoto = photo && !imgFailed;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6"
       role="dialog"
@@ -131,6 +132,7 @@ export default function PrecedentModal({ precedent, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
