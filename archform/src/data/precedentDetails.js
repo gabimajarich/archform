@@ -14,6 +14,7 @@
 
 const WM = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=640`;
 const AD = (q) => `https://www.archdaily.com/search/all?q=${encodeURIComponent(q)}`;
+const GOOGLE = (q) => `https://www.google.com/search?q=${encodeURIComponent(q)}`;
 
 export const DETAILS = {
   fuji: {
@@ -435,17 +436,19 @@ export function getPrecedentDetail(precedent) {
   if (authored) {
     return {
       ...authored,
+      // Link always opens a Google search for the project (name + architect).
+      link: GOOGLE(`${precedent.name} ${precedent.architect}`),
       image: null, // resolved at runtime from `wiki`, SVG portrait as fallback
       wiki: WIKI[precedent.id] ?? precedent.name,
       authored: true,
     };
   }
 
-  // Graceful fallback: still resolves a real photo from the project name, plus an
-  // ArchDaily link, a sensible material guess, and influences from the reason.
+  // Graceful fallback: resolves a real photo from the project name, a Google
+  // search link, a sensible material guess, and influences from the reason.
   return {
     authored: false,
-    link: AD(`${precedent.name} ${precedent.architect}`),
+    link: GOOGLE(`${precedent.name} ${precedent.architect}`),
     image: null,
     wiki: precedent.name,
     materials: inferMaterials(precedent.tags),

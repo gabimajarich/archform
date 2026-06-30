@@ -121,14 +121,12 @@ export default function PrecedentModal({ precedent, onClose }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-umber bg-umber px-6 py-3 text-sm text-paper transition duration-300 ease-soft hover:bg-ink"
             >
-              {detail.authored ? "Read more about the project" : "Find this project"}
+              Search this project
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M7 17 17 7M7 7h10v10" />
               </svg>
             </a>
-            {!detail.authored && (
-              <p className="text-xs text-stone">Opens an architectural search for this project.</p>
-            )}
+            <p className="text-xs text-stone">Opens Google results for this project in a new tab.</p>
           </div>
         </div>
       </div>
